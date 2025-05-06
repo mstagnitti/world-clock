@@ -22,3 +22,22 @@ function updateClock() {
 
 updateClock();
 setInterval(updateClock, 1000);
+
+function updateCity(event) {
+  let cityTimezone = event.target.value;
+  let cityName = cityTimezone.replace("_", " ").split("/")[1];
+  let cityTime = moment().tz(cityTimezone);
+  let chosenCity = document.querySelector("#city");
+
+  chosenCity.innerHTML = `<div class="city">
+          <div>
+            <h2>${cityName}</h2>
+            <div class="date">${cityTime.format("MMMM Do YYYY")}</div>
+          </div>
+          <div class="time">${cityTime.format("h:mm:ss [<small>]A[</small>]")}
+  </div>
+        </div>`;
+}
+
+let citySelectElement = document.querySelector("#cities");
+citySelectElement.addEventListener("change", updateCity);
